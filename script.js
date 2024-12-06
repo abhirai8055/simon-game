@@ -1,4 +1,3 @@
-// Selectors for DOM elements
 const levelDisplay = document.getElementById("level");
 const colorButtons = {
     red: document.getElementById("red"),
@@ -14,13 +13,11 @@ const sounds = {
     gameOver: new Audio("utility/game-over.mp3"),
 };
 
-// Game variables
 let gameSequence = [];
 let playerSequence = [];
 let level = 0;
 let gameStarted = false;
 
-// Utility Functions
 const playPopupSound = () => {
     sounds.newPopup.currentTime = 0;
     sounds.newPopup.play();
@@ -28,14 +25,14 @@ const playPopupSound = () => {
 
 const flashButton = (color, isGameGenerated = false) => {
     const button = colorButtons[color];
-    button.style.filter = "brightness(1.5)"; // Brighten the button
+    button.style.filter = "brightness(5)"; 
 
     if (isGameGenerated) {
-        playPopupSound(); // Play popup sound for game-generated flashes
+        playPopupSound(); 
     }
 
     setTimeout(() => {
-        button.style.filter = "brightness(1)"; // Restore original brightness
+        button.style.filter = "brightness(1)"; 
     }, 300);
 };
 
@@ -52,7 +49,7 @@ const startGame = () => {
     nextLevel();
 };
 
-// Advance to the next level
+// next level
 const nextLevel = () => {
     level++;
     displayMessage(`Level ${level}`);
@@ -78,7 +75,7 @@ const handleButtonClick = (color) => {
     if (!gameStarted) return;
 
     playerSequence.push(color);
-    flashButton(color); // Flash without playing popup sound
+    flashButton(color);
 
     // Check if the player's input matches the game sequence
     if (playerSequence[playerSequence.length - 1] !== gameSequence[playerSequence.length - 1]) {
@@ -92,7 +89,7 @@ const handleButtonClick = (color) => {
     }
 };
 
-// Game over logic
+// Game over 
 const gameOver = () => {
     sounds.gameOver.currentTime = 0;
     sounds.gameOver.play();
@@ -100,7 +97,6 @@ const gameOver = () => {
     gameStarted = false;
 };
 
-// Event Listeners
 document.addEventListener("keydown", () => {
     if (!gameStarted) startGame();
 });
